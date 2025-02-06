@@ -1,0 +1,59 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: onfly-app
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - ./api/.env
+    working_dir: /var/www
+    volumes:
+      - ./api:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    depends_on:
+      - mysql
+    networks:
+      - localhost
+
+  webserver:
+    image: nginx:alpine
+    container_name: onfly-webserver
+    restart: unless-stopped
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./api:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - localhost
+
+  mysql:
+    image: mysql:5.7
+    container_name: onfly-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'onfly-database'
+      MYSQL_USER: 'onfly'
+      MYSQL_PASSWORD: 'onfly'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3306:3306"
+    volumes:
+     - mysql_data:/var/lib/mysql
+    networks:
+      - localhost
+
+volumes:
+  storage:
+  laravel_cache:
+  entrypoint:
+  mysql_data:
+
+networks:
+  localhost:
+    driver: bridge

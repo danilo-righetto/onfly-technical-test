@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app:
+    restart: unless-stopped
+    container_name: onfly-app
+    build:
+      context: ../
+      dockerfile: ./deploy/Dockerfile
+    volumes:
+      - ../:/var/www/html/
+    env_file:
+      - ../.env
+    environment:
+      DB_PORT: 3306
+    ports:
+      - "8080:80"
+      - "5173:5173"
+    networks:
+      - n-onfly
+    depends_on:
+      - database
+
+  database:
+    restart: unless-stopped
+    container_name: onfly-database
+    image: mariadb:lts-jammy
+    volumes:
+      - v-database:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE: onfly
+      MARIADB_USER: onfly
+      MARIADB_PASSWORD: onfly
+      MARIADB_ROOT_PASSWORD: root
+    networks:
+      - n-onfly
+
+volumes:
+  v-database:
+
+networks:
+  n-onfly:
+    driver: bridge

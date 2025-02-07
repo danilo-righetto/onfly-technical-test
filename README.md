@@ -6,17 +6,42 @@ Esse é um teste técnico para a vaga de **Desenvolvedor Sênior PHP** para a em
 
 ## Requisitos
 
-### Requisitos
-
 O prazo para entrega é de 4 dias seguidos.
+
+### Você precisa desenvolver um microsserviço em Laravel para gerenciar pedidos de viagem corporativa. O microsserviço deve expor uma API REST para as seguintes operações:
+
+- [ ] Criar um pedido de viagem: Um pedido deve incluir o ID do pedido, o nome do solicitante, o destino, a data de ida, a data de volta e o status (solicitado, aprovado, cancelado).
+
+- [ ] Atualizar o status de um pedido de viagem: Possibilitar a atualização do status para "aprovado" ou "cancelado". (nota: o usuário que fez o pedido não pode alterar o status do mesmo)
+
+- [ ] Consultar um pedido de viagem: Retornar as informações detalhadas de um pedido de viagem com base no ID fornecido.
+
+- [ ] Listar todos os pedidos de viagem: Retornar todos os pedidos de viagem cadastrados, com a opção de filtrar por status.
+
+- [ ] Cancelar pedido de viagem após aprovação: Implementar uma lógica de negócios que verifique se é possível cancelar um pedido já aprovado 
+
+- [ ] Filtragem por período e destino: Adicionar filtros para listar pedidos de viagem por período de tempo (ex: pedidos feitos ou com datas de viagem dentro de uma faixa de datas) e/ou por destino.
+
+- [ ] Notificação de aprovação ou cancelamento: Sempre que um pedido for aprovado ou cancelado, uma notificação deve ser enviada para o usuário que solicitou o pedido.
 
 ### Requisitos Técnicos:
 
-- [ ] Usar o framework [Laravel](https://laravel.com/) (preferencialmente versão 11).
-- [ ] Utilizar migrações para criação de tabelas no banco de dados.
-- [ ] Utilizar Seeders para popular o banco com dados de teste.
-- [ ] Organizar o código em controllers, models e views conforme a estrutura do Laravel.
-- [ ] Adicionar `testes unitários` e de `feature` (opcional, mas será um diferencial).
+- [X] Utilize o framework Laravel (versão mais recente possível).
+- [ ] A API deve seguir as boas práticas de arquitetura de microsserviços.
+- [X] Utilize um banco de dados relacional (MySQL) e forneça uma migração para a estrutura das tabelas necessárias.
+- [ ] Implemente validação de dados no backend e tratamento de erros apropriado.
+- [ ] Escreva testes automatizados (preferencialmente com PHPUnit) para as principais funcionalidades.
+- [X] Utilize Docker para facilitar a execução do serviço. A aplicação deve poder ser executada via Docker.
+- [ ] Implemente autenticação simples usando tokens (como JWT) para proteger a API.
+- [ ] Crie um relacionamento entre as ordens de viagem e o usuário autenticado e faça com que cada usuário possa ver, editar e cadastrar apenas as suas próprias ordens.
+
+## Critérios de Avaliação
+
+- [ ] Organização e Qualidade do Código: Como você estrutura e organiza seu código, aplicando boas práticas de desenvolvimento.
+- [ ] Uso de Boas Práticas do Laravel: Queremos ver como você utiliza os recursos do framework, como Eloquent, Middlewares, Requests e Resources.
+- [ ] Eficiência da Solução: Avaliação da performance geral e da eficiência da sua solução.
+- [ ] Testes e Confiabilidade: Como você garante a confiabilidade da aplicação com testes automatizados.
+- [X] Documentação: A clareza das instruções fornecidas no README.md para configurar e executar o projeto.
 
 ## Instalação
 
@@ -28,33 +53,39 @@ Este projeto utiliza o [Docker](https://www.docker.com/) e o [Docker Compose](ht
 
 Execute os passos abaixo para iniciar (subir) o projeto:
 
-1. Acesse a pasta do projeto [./api](./api);
+1. Acesse a pasta do projeto [./api](./api).
 
-2. Execute o comando para construir (build) as imagens do projeto:
+2. Execute o comando para criar o arquivo `.env`:
+
+```sh
+cp .env.example .env
+```
+
+3. Execute o comando para construir (build) as imagens do projeto:
 
 ```sh
 docker-compose build --no-cache
 ```
 
-3. Execute o seguinte comando para iniciar (subir) o projeto:
+4. Execute o seguinte comando para iniciar (subir) o projeto:
 
 ```sh
 docker-compose up -d
 ```
 
-4. Execute o seguinte comando para gerar uma chave para a aplicação:
+5. Execute o seguinte comando para gerar uma chave para a aplicação:
 
 ```sh
 docker-compose exec -it app php artisan key:generate
 ```
 
-5. Execute as `migrations` da aplicação: 
+6. Execute as `migrations` da aplicação: 
 
 ```sh
 docker-compose exec -it app php artisan migrate
 ```
 
-6. Execute as `seeders` da aplicação: 
+7. Execute as `seeders` da aplicação: 
 
 ```sh
 docker-compose exec -it app php artisan db:seed

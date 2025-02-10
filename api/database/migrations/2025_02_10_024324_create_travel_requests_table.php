@@ -11,9 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('travel_requests', function (Blueprint $table) {
+        Schema::create('onfly_travel_request', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id');
+            $table->string('name_applicant');
+            $table->string('origin');
+            $table->string('destination');
+            $table->date('departure_date');
+            $table->date('return_date');
+            $table->string('status');
+            $table->unsignedBigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('onfly_users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes('deleted_at');
         });
     }
 
@@ -22,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('travel_requests');
+        Schema::dropIfExists('onfly_travel_request');
     }
 };

@@ -116,4 +116,53 @@ class JWTAuthControllerTest extends TestCase
         ]);
         $response->assertJsonPath('error', 'Invalid credentials');
     }
+
+    public function test_get_user_returns_a_successful_response(): void
+    {
+        /* Arrange */
+        $user = User::factory()->create([
+            'password' => 'onflypassword'
+        ]);
+        
+        $password = 'onflypassword';
+        $data = [
+            'email' => $user->email,
+            'password' => $password,
+        ];
+        
+        $response = $this->post('/api/login', $data);
+        $responseContent = json_decode($response->getContent());
+
+        /* Act */
+        $getAuthUser = $this->get('/api/auth/user', ['Authorization' => 'Bearer ' . $responseContent->token]);
+        
+        /* Assert */
+        $getAuthUser->assertStatus(200);
+        $getAuthUser->assertOk();
+        $getAuthUser->assertJsonStructure([
+            'data' => [
+                'id',
+                'name',
+                'firstName',
+                'lastName',
+                'email',
+                'created_at',
+                'updated_at'
+            ],
+        ]);
+    }
+
+    public function test_get_user_returns_a_error_response(): void
+    {
+        /* Arrange and Act */
+        $getAuthUser = $this->get('/api/auth/user', ['Authorization' => 'Bearer test']);
+        
+        /* Assert */
+        $getAuthUser->assertStatus(401);
+        $getAuthUser->assertUnauthorized();
+        $getAuthUser->assertJsonStructure([
+            'error'
+        ]);
+        $getAuthUser->assertJsonPath('error', 'Token not valid');
+    }
 }

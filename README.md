@@ -94,13 +94,64 @@ docker-compose exec -it app php artisan db:seed
 
 ## Documentação
 
-- [PHP](https://www.php.net/manual/pt_BR/index.php)
-- [Laravel](https://laravel.com/docs)
-- [Composer](https://getcomposer.org/)
+Documentação da API implementada nesse projeto.
+
+### Auth
+
+> Cadastro de Usuário
+
+**REQUEST**
+```sh
+curl --request POST \
+  --url http://localhost/api/register \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"name": "",
+	"email": "",
+	"password": "",
+	"password_confirmation": ""
+}'
+```
+
+**RESPONSE**
+```json
+{
+	"user": {
+		"name": "",
+		"email": "",
+		"updated_at": "",
+		"created_at": "",
+		"id": 1
+	},
+	"token": ""
+}
+```
+
+> Login
+
+**REQUEST**
+```sh
+curl --request POST \
+  --url http://localhost/api/login \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"email": "",
+	"password": ""
+}'
+```
+
+**RESPONSE**
+```json
+{
+	"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L2FwaS9sb2dpbiIsImlhdCI6MTczOTA3MTc4MCwiZXhwIjoxNzM5MDc1MzgwLCJuYmYiOjE3MzkwNzE3ODAsImp0aSI6InRvTUlzeElhdjNaTVhCdXAiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsInJvbGUiOm51bGx9.l8PMnX_taHHvrdWOmkCMDxY7imrYpnQ5zZ1tkZhCK_w"
+}
+```
 
 ## Stack utilizada
 
-- **Back-end:** Laravel 11.x, PHP
+- [PHP](https://www.php.net/manual/pt_BR/index.php)
+- [Laravel](https://laravel.com/docs) - 11x
+- [Composer](https://getcomposer.org/)
 
 ## Autores
 

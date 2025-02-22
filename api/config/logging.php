@@ -127,6 +127,16 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // 'elasticsearch' => [
+        //     'driver'    => 'custom',
+        //     'via'       => ElasticSearchLogger::class,
+        //     'channel'   => env('APP_ENV', 'local'),
+        //     'host'      => env('ELASTIC_HOST', 'localhost'),
+        //     'port'      => env('ELASTIC_HTTP', '9200'),
+        //     'index'     => env('ELASTIC_LOGS_INDEX', 'wallet_api'),
+        //     'app_name'  => env('APP_NAME', 'wallet_api')
+        // ],
+
     ],
 
 ];

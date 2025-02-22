@@ -1,4 +1,4 @@
-<p align="center" style="background-color: white"><a href="https://www.exata.it" target="_blank"><img src="https://www.exata.it/wp-content/uploads/2023/07/logo-exata-data-intelligence.png" width="300" alt="Exata it"></a></p>
+<p align="center" style="background-color: white"><a href="https://www.onfly.com.br" target="_blank"><img src="https://www.onfly.com.br/wp-content/uploads/2024/07/onfly-logo-azul-01-768x307-1.webp" width="300" alt="Onfly"></a></p>
 
 # Onfly - Teste Técnico PHP
 
